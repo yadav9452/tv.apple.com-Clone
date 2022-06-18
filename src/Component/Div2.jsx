@@ -1,31 +1,28 @@
 import React from "react";
 import { Heading, Box } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { addMovies } from "../Redux/movies/movieSlice";
-import { getAllMovies } from "../Redux/movies/movieSlice";
+import { addMovie } from "../Redux/movies/movieSlice";
+import { getAllMovie } from "../Redux/movies/movieSlice";
 import { Flex } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const Div1 = () => {
+const Div2 = () => {
   const dispatch = useDispatch();
-  // const movieText = "fast";
-  const movies = useSelector(getAllMovies);
-  console.log("movies:", movies);
+  const movie = useSelector(getAllMovie);
+  console.log("movie:", movie);
   useEffect(() => {
-    const fetchMovies1 = async () => {
+    const fetchMovies2 = async () => {
       const res = await axios
-        .get("https://backend-app-tv.herokuapp.com/movies1")
+        .get("https://backend-app-tv.herokuapp.com/movies2")
         .catch((err) => {
           console.log(err);
         });
       // console.log(res.data.Search);
-      dispatch(addMovies(res.data));
+      dispatch(addMovie(res.data));
     };
-    fetchMovies1();
+    fetchMovies2();
   }, [dispatch]);
-  // const movieText = "fast";
-
   return (
     <Box padding={" 20px 0px 0px 10px"} margin="20px">
       <Heading fontSize={"20px"}>
@@ -33,7 +30,7 @@ const Div1 = () => {
       </Heading>
       <p>A thrilling "what if" take on the global space race.</p>
       <Flex gap={"10px"}>
-        {movies.map((e) => {
+        {movie.map((e) => {
           return (
             <Flex key={e.id}>
               <img src={e.posterUrl} alt="" />
@@ -41,11 +38,8 @@ const Div1 = () => {
           );
         })}
       </Flex>
-      <Box padding={" 20px 0px 0px 10px"} margin="20px">
-        <Heading fontSize={"20px"}>Most Popular Now</Heading>
-      </Box>
     </Box>
   );
 };
 
-export default Div1;
+export default Div2;
